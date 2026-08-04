@@ -7,7 +7,7 @@ WORKDIR     /app
 
 ADD         requirements.txt .
 
-RUN         --mount=type=cache,sharing=locked,target=/root/.cache,id=home-cache-$TARGETPLATFORM \
+RUN         --mount=type=cache,sharing=locked,target=/root/.cache \
             apk add --no-cache \
               gettext=${GETTEXT_VERSION} \
             && \
@@ -21,7 +21,6 @@ USER        nobody
 RUN         cd locales && \
             find . -maxdepth 2 -type d -name 'LC_MESSAGES' -exec ash -c 'msgfmt {}/unobot.po -o {}/unobot.mo' \;
 
-VOLUME      /app/data
 ENV         UNO_DB=/app/data/uno.sqlite3
 
 ENTRYPOINT  [ "python", "bot.py" ]
