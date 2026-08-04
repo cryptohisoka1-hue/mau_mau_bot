@@ -7,7 +7,7 @@ WORKDIR     /app
 
 ADD         requirements.txt .
 
-RUN         --mount=type=cache,sharing=locked,target=/root/.cache \
+RUN         --mount=type=cache,sharing=locked,target=/root/.cache,id=home-cache \
             apk add --no-cache \
               gettext=${GETTEXT_VERSION} \
             && \
